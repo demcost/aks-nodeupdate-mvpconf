@@ -17,4 +17,4 @@ jobs:
       - name: Upgrade node images
         uses: Azure/cli@v1.0.0
         with:
-          inlineScript: az aks nodepool upgrade --resource-group ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --name nodepool2 
+          inlineScript: az aks nodepool update -n nodepool2 -g ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --max-surge 1  

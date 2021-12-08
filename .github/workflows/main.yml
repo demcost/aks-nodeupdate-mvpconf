@@ -1,4 +1,4 @@
-name: Upgrade cluster node
+name: Update cluster node
 
 on:
   schedule:
@@ -17,4 +17,4 @@ jobs:
       - name: Upgrade node images
         uses: Azure/cli@v1.0.0
         with:
-          inlineScript: az aks nodepool update -n nodepool2 -g ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --max-surge 1  
+          inlineScript: az aks nodepool upgrade --resource-group ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --name nodepool2 --kubernetes-version 1.21.2 --no-wait

@@ -27,7 +27,7 @@ jobs:
           echo "${{ steps.discover_version.outputs.kubernetes_version }}"
 
 
-      #- name: Upgrade node images
-      #  uses: Azure/cli@v1.0.0
-      #  with:
-      #    inlineScript: az aks nodepool upgrade --resource-group ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --name nodepool2 --kubernetes-version 1.20.7
+      - name: Upgrade node images
+        uses: Azure/cli@v1.0.0
+        with:
+          inlineScript: az aks upgrade --resource-group ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --no-wait --kubernetes-version ${{ steps.discover_version.outputs.kubernetes_version }}

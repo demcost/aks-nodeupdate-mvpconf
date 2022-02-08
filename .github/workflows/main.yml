@@ -16,10 +16,16 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
       - name: Discover last kubernetes version
+        id: discover_version
         run: |
-          set_version=(az aks get-versions --location brazilsouth --query 'orchestrators[-1].orchestratorVersion')
+          kubernetes_version=(az aks get-versions --location brazilsouth --query 'orchestrators[-1].orchestratorVersion')
           
-          echo "::set-output name=set_version::$set_version"
+          echo "::set-output name=kubernetes_version::$kubernetes_version"
+          
+      - name: Print version choosed
+        run: |
+          echo "${{ steps.discover_version.outputs.kubernetes_version }}"
+
 
       #- name: Upgrade node images
       #  uses: Azure/cli@v1.0.0

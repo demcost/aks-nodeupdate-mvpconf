@@ -18,7 +18,7 @@ jobs:
       - name: Discover last kubernetes version
         id: discover_version
         run: |
-          kubernetes_version=(az aks get-versions --location brazilsouth --query 'orchestrators[-1].orchestratorVersion')
+          kubernetes_version=$(az aks get-versions --location brazilsouth --query 'orchestrators[-1].orchestratorVersion')
           
           echo "::set-output name=kubernetes_version::$kubernetes_version"
           

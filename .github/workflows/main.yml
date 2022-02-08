@@ -2,7 +2,7 @@ name: Update cluster node
 
 on:
   schedule:
-    - cron: '0 1 */15 * *'
+    - cron: '0 12 */15 * *'
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,14 @@ jobs:
         uses: Azure/login@v1.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Upgrade node images
-        uses: Azure/cli@v1.0.0
-        with:
-          inlineScript: az aks nodepool upgrade --resource-group ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --name nodepool2 --kubernetes-version 1.20.7
+          
+      - name: Discover last kubernetes version
+        run: |
+          set_version=(az aks get-versions --location brazilsouth --query 'orchestrators[-1].orchestratorVersion')
+          
+          echo "::set-output version=set_version::$set_version"
+
+      #- name: Upgrade node images
+      #  uses: Azure/cli@v1.0.0
+      #  with:
+      #    inlineScript: az aks nodepool upgrade --resource-group ${{secrets.RESOURCE_GROUP_NAME}} --cluster-name ${{secrets.AKS_CLUSTER_NAME}} --name nodepool2 --kubernetes-version 1.20.7

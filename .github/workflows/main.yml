@@ -19,7 +19,7 @@ jobs:
         run: |
           set_version=(az aks get-versions --location brazilsouth --query 'orchestrators[-1].orchestratorVersion')
           
-          echo "::set-output version=set_version::$set_version"
+          echo "::set-output name=set_version::$set_version"
 
       #- name: Upgrade node images
       #  uses: Azure/cli@v1.0.0

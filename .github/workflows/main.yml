@@ -28,6 +28,7 @@ jobs:
 
 
       - name: Upgrade node images
-        uses: Azure/cli@v1.0.0
+        uses: azure/CLI@v1
         with:
+          azcliversion: 2.30.0
           inlineScript: az aks upgrade --resource-group ${{secrets.RESOURCE_GROUP_NAME}} --name ${{secrets.AKS_CLUSTER_NAME}} --no-wait --kubernetes-version ${{ steps.discover_version.outputs.kubernetes_version }}
